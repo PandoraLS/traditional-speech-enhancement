@@ -1,63 +1,135 @@
 # traditional-speech-enhancement-algorithms
 
-传统语音增强算法
-语音增强算法的下载为[K14513_CD_Files.zip](https://www.crcpress.com/downloads/K14513/K14513_CD_Files.zip)
+传统语音增强算法，**代码开箱即用**
 
-压缩包中由于包含一些数据集，所以比较大；
-这里仅仅上传代码部分（matlab），代码年代比较久，但是**仅需稍加修改就可以在`matlab2016`及以上版本上运行**。
+该部分代码配套书籍为《语音增强-理论与实践》，包含经典的语音增强算法、语音解混响算法、语音质量客观评估标准等代码
 
-该部分代码包括一些经典的语音增强算法、数据处理方法和评测准则，在每部分子文件夹下都有`readme.txt`对各算法的介绍。
+《语音增强-理论与实践》2012**中文版**电子书可从[百度网盘](https://pan.baidu.com/s/1E5Mi3POcXHg5WabvGfCl4w)获取，提取码为`med8`
 
-- 谱减法
-    * specsub
-    * mband
-    * ss_rdc
-- 基于统计的方法
-    * wiener_iter
-    * wiener_as
-    * wiener_wt
-    * mt_mask
-    * audnoise
-    * mmse
-    * logmmse
-    * logmmse_SPU
-    * stsa_weuclid
-    * stsa_wcosh
-    * stsa_wlr
-    * stsa_mis
-- 噪声估计方法
-    * specsub_ns
-    * martin_estimation
-    * mcra_estimation
-    * mcra2_estimation
-    * imcra_estimation
-    * doblinger_estimation
-    * hirsch_estimation
-    * connfreq_estimation
-- 子空间方法
-    * klt
-    * pklt
-- 理想信道选择
-    * ics
-    * ics_competing_talker
-    * ics_constr_rule
-    * ics_reverb
-    * ics_masker_rule
-- 客观评价标准
-    
-    可懂度
-    * NCM
-    * CSII
+《语音增强-理论与实践 第2版》2013**英文版**电子书可从[百度网盘](https://pan.baidu.com/s/1gTRIt3doc7DgiA4-Zb6ZwQ)获取，提取码`45xv`
 
-    感知质量
-    * comp_snr
-    * comp_wss
-    * comp_llr
-    * comp_is
-    * comp_cep
-    * comp_fwseg
-    * comp_fwseg_variant
-    * comp_fwseg_mars
-    * pesq
-    * composite
-    * addnoise_asl
+这里仅包含`matlab`代码和样例音频(*.wav)，对应书籍配套光盘中的`MATLAB code`部分
+
+全部配套数据集及代码可以从[K14513_CD_Files.zip](https://www.crcpress.com/downloads/K14513/K14513_CD_Files.zip)下载， zip文件大小约480MB
+
+该部分代码发布较早，如果在最新的`matlab`上运行，仅需**稍作修改**，比如在`statistical_based/wiener_as.m`中
+```
+wavwrite( enhanced_speech, fs, nbits, outfile);
+```
+需要修改为以下写法之后即可在`matlab2016`中运行
+```
+audiowrite(outfile,enhanced_speech,fs);
+```
+
+总文件夹结构如下
+```
++---spectral_subtractive                    # 谱减法
++---statistical_based                       # 基于统计的方法
++---subspace                                # 子空间法
++---noise_estimation                        # 噪声估计算法
+\---objective_measures                      # 客观评估准则
+|   +---intelligibility                     # 语音可懂度
+|   \---quality                             # 语音质量(清晰度)
++---ideal_channel_selection                 # 理想通道选择
+```
+
+每个子文件夹中包含`readme.txt`和`readme.pdf`，提供各算法的**使用样例**和对应的**参考文献**
+
+各文件夹中包含的算法如下
+```
+├─spectral_subtractive                      # 谱减法 
+│      specsub.m                            # 基本谱减算法
+│      mband.m                              # 多带谱减算法
+│      ss_rdc.m                             # 采用自适应增益平均和低延时卷积的谱减算法
+│
+├─statistical_based                         # 基于统计的方法
+│      wiener_iter.m                        # 基于全极点语音产生模型的迭代维纳滤波算法
+│      wiener_as.m                          # 基于先验信噪比估计的维纳滤波算法
+│      wiener_wt.m                          # 基于小波阈值多窗谱的维纳滤波算法
+│      mt_mask.m                            # 基于心理声学的算法
+│      audnoise.m                           # 可听(Audible)噪声抑制算法
+│      mmse.m                               # 采用或未采用语音存在不确定度的MMSE算法
+│      logmmse.m                            # 对数MMSE算法
+│      logmmse_SPU.m                        # 结合语音存在不确定度的对数MMSE算法
+│      stsa_weuclid.m                       # 基于加权欧式失真测度的贝叶斯估计器
+│      stsa_wcosh.m                         # 基于加权Cosh失真测度的贝叶斯估计器
+│      stsa_wlr.m                           # 基于加权似然比失真测度的贝叶斯估计器
+│      stsa_mis.m                           # 基于修正Itakura-Saito失真测度的贝叶斯估计器
+│
+├─subspace                                  # 子空间法
+│      klt.m                                # 采用内嵌预白化的子空间法
+│      pklt.m                               # 基于感知的子空间法
+│
+├─noise_estimation                          # 噪声估计
+│      specsub_ns.m                         # 不同噪声估计算法汇总
+│      martin_estimation.m                  # Martin最小值跟踪算法
+│      mcra_estimation.m                    # MCRA算法
+│      mcra2_estimation.m                   # MCRA2算法
+│      imcra_estimation.m                   # 改进的MCRA算法
+│      doblinger_estimation.m               # 连续最小值跟踪算法
+│      hirsch_estimation.m                  # 加权谱平均
+│      connfreq_estimation.m                # 联合时频区域
+│
+├─objective_measures                        # 客观评估准则
+│  ├─intelligibility                        # 语音可懂度
+│  │      CSII.m                            # 计算CSII测度
+│  │      NCM.m                             # 计算NCM测度
+│  │      SII.m                             # 计算SII测度
+│  │
+│  └─quality                                # 语音质量(清晰度)
+│          comp_snr.m                       # 计算分段信噪比及总和
+│          comp_wss.m                       # 计算加权谱斜率测度
+│          comp_llr.m                       # 计算似然比
+│          comp_is.m                        # 计算Itakura-Saito测度
+│          comp_cep.m                       # 计算倒谱距离
+│          comp_fwseg.m                     # 计算频率加权分度信噪比(fwSNRseg)
+│          comp_fwseg_variant.m             # 计算频率变化的fwSNRseg
+│          comp_fwseg_mars.m                # 基于MARS分析计算频率变化的fwSNRseg
+│          pesq.m                           # 计算PESQ(语音感知质量)
+│          composite.m                      # 计算综合测度
+│          addnoise_asl.m                   # 基于活动语音强度按指定信噪比向干净语音中加入噪声
+│
+└─ideal_channel_selection                   # 理想通道选择
+        ics.m                               # 基于信噪比的通道选择(理想二值掩蔽)
+        ics_constr_rule.m                   # 基于SNR_ESI规则的通道选择
+        ics_masker_rule.m                   # 基于掩码约束的通道选择
+        ics_reverb.m                        # 基于SRR规则的通道选择
+```
+
+
+《语音增强-理论与实践》书籍配套光盘[K14513_CD_Files.zip](https://www.crcpress.com/downloads/K14513/K14513_CD_Files.zip)目录结构如下
+```
+Databases
+    - Noise Recordings
+    - Speech
+        - Consonants
+            - Narrowband
+            - Wideband
+        - IEEE corpus
+            - Narrowband
+            - Wideband
+        - NOIZEUS
+            - Airport
+                - 0dB
+                - 5dB
+                - 10dB
+                - 15dB
+            + Babble
+            + Car
+            + Clean
+            + Exhibition
+            + Restaurant
+            + Station
+            + Street
+            + Train
++ GMM SNR classifier (C/C++ code)
+MATLAB code
+    - Ideal_channel_selection
+    - Noise_estimation
+    - Objective_measures
+    - Intelligibility
+    - Quality
+    - Spectral subtractive
+    - Statistical_based
+    - Subspace
+```

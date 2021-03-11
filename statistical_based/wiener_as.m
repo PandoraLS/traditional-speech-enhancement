@@ -29,7 +29,7 @@ end
 
 
 
-[noisy_speech, fs, nbits]= audioread( filename);
+[noisy_speech, fs, nbits]= wavread( filename);
 noisy_speech= noisy_speech; 
 % column vector noisy_speech
 
