@@ -10,9 +10,7 @@
 
 这里仅包含`matlab`代码和样例音频(*.wav)，对应书籍配套光盘中的`MATLAB code`部分
 
-全部配套数据集及代码可以从[K14513_CD_Files.zip](https://www.crcpress.com/downloads/K14513/K14513_CD_Files.zip)下载， zip文件大小约480MB
-
-该部分代码发布较早，如果在最新的`matlab`上运行，仅需**稍作修改**，比如在`statistical_based/wiener_as.m`中
+该部分代码发布较早，如果在最新的`matlab`上运行，可能需要做**适当修改**，比如在`statistical_based/wiener_as.m`中
 ```
 wavwrite( enhanced_speech, fs, nbits, outfile);
 ```
