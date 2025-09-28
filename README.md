@@ -1,6 +1,6 @@
 # traditional-speech-enhancement-algorithms
 
-This repository contains traditional speech enhancement algorithms, accompanying the book `Speech enhancement_theory and practice`. It includes classic speech enhancement algorithms and objective evaluation metrics for speech quality.
+This repository contains traditional speech enhancement algorithms, accompanying the book `Speech enhancement_theory and practice.pdf`. It includes classic speech enhancement algorithms and objective evaluation metrics for speech quality.
 This repository only includes `matlab` code and sample audio files (*.wav), corresponding to the `MATLAB code` section of the CD-ROM that comes with the book.
 The code was published quite some time ago and may require appropriate modifications to run on the latest versions of `matlab`. For example, in `statistical_based/wiener_as.m`:
 
